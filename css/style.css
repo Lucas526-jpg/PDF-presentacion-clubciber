@@ -1,0 +1,149 @@
+/* Importamos la fuente desgastada (Rubik Glitch) y las profesionales */
+        @import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Montserrat:wght@400;700&family=Share+Tech+Mono&display=swap');
+        
+        body {
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+/* Estilo para las tarjetas */
+.card-cyber {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    padding: 30px; /* Aumentamos el padding interno */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    
+    /* EL CAMBIO CLAVE */
+    min-height: 500px; /* Ajusta este valor (ej: 400px, 500px, 600px) */
+    justify-content: space-between; /* Distribuye el título, imagen y texto uniformemente */
+}
+
+/* Estilo para las imágenes dentro de las tarjetas */
+.img-card {
+    width: 100%;           /* Ocupa el ancho de la card */
+    max-height: 250px;     /* Altura máxima para que no empuje el texto fuera */
+    object-fit: cover;     /* Ajusta la imagen sin deformarla */
+    border-radius: 5px;       /* Espacio arriba y abajo de la foto */
+    border: 1px solid #00E5FF;
+}
+
+.img-ciber {        /* Ocupa el ancho de la card */
+    width: 20em;
+    max-height: 10em;     /* Altura máxima para que no empuje el texto fuera */
+    object-fit: cover;     /* Ajusta la imagen sin deformarla */
+    border-radius: 5px;       /* Espacio arriba y abajo de la foto */
+    border: 1px solid #00E5FF;
+}
+
+.img-ciber1 {        /* Ocupa el ancho de la card */
+    max-width: 20em;
+    max-height: 15em;     /* Altura máxima para que no empuje el texto fuera */
+    object-fit: cover;     /* Ajusta la imagen sin deformarla */
+    border-radius: 5px;       /* Espacio arriba y abajo de la foto */
+}
+
+.img-candado {        /* Ocupa el ancho de la card */
+    margin-right: 5em;
+}
+
+/* Ajuste de la rejilla */
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* EL CANVAS EN EL FONDO ABSOLUTO */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Cambiado a 0 */
+    pointer-events: none;
+}
+
+/* LA ESTRUCTURA DE REVEAL TOTALMENTE TRANSPARENTE */
+.reveal, 
+.reveal .slides, 
+.reveal .slides section, 
+.reveal .backgrounds {
+    background: transparent !important;
+}
+
+/* AJUSTE DE CAPAS INTERNAS DE REVEAL */
+.reveal .backgrounds {
+    z-index: 1; /* La imagen de fondo estará en el nivel 1 */
+}
+
+.reveal .slides {
+    z-index: 2; /* El texto estará en el nivel 2 */
+}
+
+/* === ESTILO DE LA IMAGEN 2: Letra blanca desgastada con borde azul === */
+.title-grunge {
+    font-family: 'Rubik Glitch', cursive !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase;
+    /* Simulamos el borde azul oscuro de tu imagen con sombras múltiples */
+    text-shadow: 
+        -3px -3px 0 #002266,  
+            3px -3px 0 #002266,
+        -3px  3px 0 #002266,
+            3px  3px 0 #002266,
+            0px  0px 15px #0033FF !important;
+    margin-bottom: 10px !important;
+    line-height: 1.1;
+}
+
+.title-grunge1 {
+    font-family: 'Rubik Glitch', cursive !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase;
+    /* Simulamos el borde azul oscuro de tu imagen con sombras múltiples */
+    text-shadow: 
+        -3px -3px 0 #c21212,  
+            3px -3px 0 #a10a0a,
+        -3px  3px 0 #ad0909,
+            3px  3px 0 #460000,
+            0px  0px 15px #ff0000 !important;
+    margin-bottom: 10px !important;
+    line-height: 1.1;
+}
+
+
+/* Títulos secundarios (los que no son de la portada) */
+.normal-title {
+    text-shadow:
+        2px 2px 0px rgba(0, 229, 255, 0.7),
+        4px 4px 0px rgba(0, 229, 255, 0.5);
+}
+
+.top-title h2 {
+    border-bottom: 2px solid #00E5FF;
+    padding-bottom: 10px;
+}
+
+.highlight { color: #00E5FF; font-weight: bold; }
+.red-team { color: #FF4444; font-weight: bold; }
+.blue-team { color: #4499FF; font-weight: bold; }
+
+
+.two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+.cyan-sidebar { border-left: 5px solid #00E5FF; padding-left: 30px; text-align: left; }
+
+.watermark {
+    position: absolute; top: 25%; left: -15%;
+    font-family: 'Share Tech Mono', monospace; font-size: 18em;
+    color: rgba(0, 229, 255, 0.02); transform: rotate(-90deg); z-index: -1;
+}
+.club-footer {
+    position: absolute; bottom: 25px; right: 30px;
+    font-family: 'Share Tech Mono', monospace; color: #00E5FF; font-size: 0.55em; z-index: 10;
+}
