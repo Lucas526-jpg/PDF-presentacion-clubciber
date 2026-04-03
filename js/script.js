@@ -1,57 +1,92 @@
-// Inicializar Reveal.js
-        Reveal.initialize({
-            hash: true,
-            transition: 'fade', 
-            controls: true,
-            progress: true,
-            center: true
-        });
+// ==========================================
+// 1. INICIALIZAR REVEAL.JS
+// ==========================================
+Reveal.initialize({
+    hash: true,
+    transition: 'fade', 
+    controls: true,
+    progress: true,
+    center: true
+});
 
-        // ==========================================
-        // CÓDIGO MATRIX LIMPIO A PANTALLA COMPLETA
-        // ==========================================
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
+// ==========================================
+// 2. CÓDIGO MATRIX (Versión 1010)
+// ==========================================
 
-        // Ajustar al tamaño de la pantalla
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+// Aseguramos que apunte a "matrixCanvas" para que coincida con tu HTML
+const canvas = document.getElementById("matrixCanvas");
+const ctx = canvas.getContext("2d");
 
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}|:<>?-=[]\\;\',./';
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-        const drops = [];
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
+let color = "#0f0";
+let tamaFuente = 22;
+let cantColumnas = canvas.width / tamaFuente;
+let gotas = [];
+let estaLloviendo = true;    
+let velocidadCaida = 70;
+let intervalId;
+let caracteres = "1010";
+
+// FUNCIÓN 1: PREPARAR EL TABLERO
+function IniciarCaidaGotas() {
+    // recalculamos las columnas por si cambió el tamaño de la pantalla
+    cantColumnas = canvas.width / tamaFuente; 
+    
+    gotas = [];
+    for (let i = 0; i < Math.ceil(cantColumnas); i++) {
+        // Valores negativos para que entren desordenadas desde arriba
+        gotas[i] = Math.random() * -100; 
+    }
+}
+
+// Llamamos a la función para configurar todo al principio
+IniciarCaidaGotas();
+
+// FUNCIÓN 2: DIBUJAR
+function animacionCaidaCaracteres() {
+    // Pinta el fondo negro transparente (efecto estela)
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Configura el texto verde
+    ctx.fillStyle = color;
+    ctx.font = tamaFuente + "px monospace";
+
+    for (let i = 0; i < gotas.length; i++) {
+        let caracter = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        
+        // Coordenada X = La columna actual * el ancho de la letra
+        let coordenadaX = i * tamaFuente;
+        // Coordenada Y = La fila en la que va la gota * el alto de la letra
+        let coordenadaY = gotas[i] * tamaFuente;
+        
+        ctx.fillText(caracter, coordenadaX, coordenadaY);
+        
+        // Si la gota llegó al suelo Y el azar lo decide, vuelve al techo (0)
+        if (coordenadaY > canvas.height && Math.random() > 0.975) { 
+            gotas[i] = 0; 
         }
+        
+        // Mueve la gota una fila hacia abajo
+        gotas[i]++;
+    }
+}
 
-        function drawMatrix() {
-            // Fondo semi-transparente para el rastro
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+// FUNCIÓN 3: INICIAR
+function iniciarLluvia() {
+    if(intervalId) clearInterval(intervalId);
+    intervalId = setInterval(() => {
+        if (estaLloviendo) animacionCaidaCaracteres();
+    }, velocidadCaida); 
+}
 
-            // Letras verdes
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
+iniciarLluvia();
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                // Reiniciar la gota si llega al fondo y de forma aleatoria
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        // Ejecutar el Matrix
-        setInterval(drawMatrix, 33);
-
-        // Recalcular si se cambia el tamaño de la ventana
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+// EVENTO: SI CAMBIA EL TAMAÑO DE PANTALLA
+window.addEventListener("resize", () => {
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    IniciarCaidaGotas(); 
+});
