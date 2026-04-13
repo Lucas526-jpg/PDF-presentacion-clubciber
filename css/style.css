@@ -3,7 +3,7 @@
 
 :root {
     --cyber-font: 'Share Tech Mono', monospace;
-    --cyber-blue: #00E5FF;
+    --cyber-blue: hsl(0, 0%, 0%);
     --sharp-outline: 
         -2px -2px 0 #000,  
          2px -2px 0 #000,
